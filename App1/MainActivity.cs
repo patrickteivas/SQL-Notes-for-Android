@@ -42,7 +42,7 @@ namespace App1
                 Android.Support.V7.App.AlertDialog.Builder builder;
                 builder = new Android.Support.V7.App.AlertDialog.Builder(this);
                 builder.SetTitle("Warning");
-                builder.SetMessage("Are you sure you want to delete the note?");
+                builder.SetMessage("Are you sure you want to delete this note?");
                 builder.SetCancelable(false);
                 builder.SetPositiveButton("OK", delegate
                 {
