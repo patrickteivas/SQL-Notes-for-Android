@@ -18,7 +18,7 @@ namespace App1
     {
         SQLiteConnection db;
 
-        public void CreateDatabaseWithTable ()
+        public void CreateDatabaseWithTable()
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "myNotes.db3");
             db = new SQLiteConnection(dbPath);

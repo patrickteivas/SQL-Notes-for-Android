@@ -36,6 +36,24 @@ namespace App1
                 notes = databaseService.GetAllNotes();
                 noteListView.Adapter = new CustomAdapter(this, notes.ToList());
             };
+
+            noteListView.ItemClick += delegate(object sender, AdapterView.ItemClickEventArgs e)
+            {
+                Android.Support.V7.App.AlertDialog.Builder builder;
+                builder = new Android.Support.V7.App.AlertDialog.Builder(this);
+                builder.SetTitle("Warning");
+                builder.SetMessage("Are you sure you want to delete the note?");
+                builder.SetCancelable(false);
+                builder.SetPositiveButton("OK", delegate
+                {
+                    databaseService.DeleteNote(notes.ToList()[e.Position].Id);
+                    notes = databaseService.GetAllNotes();
+                    noteListView.Adapter = new CustomAdapter(this, notes.ToList());
+                });
+                builder.SetNegativeButton("Cancel", delegate { });
+                Dialog dialog = builder.Create();
+                dialog.Show();
+            };
         }
     }
 }
