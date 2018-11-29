@@ -29,9 +29,11 @@ namespace App1
 
             addNoteButton.Click += delegate
             {
-                string noteTitle = FindViewById<EditText>(Resource.Id.editText1).Text;
+                EditText noteTitle = FindViewById<EditText>(Resource.Id.editText1);
                 string content = addNoteEditText.Text;
-                databaseService.AddNote(noteTitle, content);
+                databaseService.AddNote(noteTitle.Text, content);
+
+                addNoteEditText.Text = noteTitle.Text = "";
 
                 notes = databaseService.GetAllNotes();
                 noteListView.Adapter = new CustomAdapter(this, notes.ToList());
