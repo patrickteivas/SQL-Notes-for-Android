@@ -34,6 +34,16 @@ namespace App1
             db.Insert(newNote);
         }
 
+        public void EditNote(int id, DateTime date, string title, string content)
+        {
+            Note editNote = new Note();
+            editNote.Id = id;
+            editNote.Date = date;
+            editNote.Title = title;
+            editNote.Content = content;
+            db.Update(editNote);
+        }
+
         public void DeleteNote(int id)
         {
             Note noteToDelete = new Note();

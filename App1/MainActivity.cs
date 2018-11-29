@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Widget;
 using System.IO;
 using SQLite;
+using Android.Views;
 
 namespace App1
 {
@@ -57,14 +58,33 @@ namespace App1
                 //dialog.Show();
 
 
-                var dlgAlert = (new Android.App.AlertDialog.Builder(this)).Create();
+                Android.App.AlertDialog dlgAlert = (new Android.App.AlertDialog.Builder(this)).Create();
                 dlgAlert.SetMessage("Choose action");
                 dlgAlert.SetTitle("Action");
                 dlgAlert.SetButton("Edit", delegate
                 {
-                    //databaseService.DeleteNote(notes.ToList()[e.Position].Id);
-                    //notes = databaseService.GetAllNotes();
-                    //noteListView.Adapter = new CustomAdapter(this, notes.ToList());
+                    LayoutInflater layoutInflater = LayoutInflater.From(this);
+                    View view = layoutInflater.Inflate(Resource.Layout.UserInputDialog, null);
+                    Android.Support.V7.App.AlertDialog.Builder alertbuilder = new Android.Support.V7.App.AlertDialog.Builder(this);
+                    alertbuilder.SetView(view);
+                    EditText newTitleEditText = view.FindViewById<EditText>(Resource.Id.title);
+                    EditText newContentEditText = view.FindViewById<EditText>(Resource.Id.content);
+                    //newTitleEditText.
+                    alertbuilder.SetCancelable(false)
+                    .SetPositiveButton("Submit", delegate
+                    {
+                        Toast.MakeText(this, "Submit Input: " + userdata.Text, ToastLength.Short).Show();
+                    })
+                    .SetNegativeButton("Cancel", delegate
+                    {
+                        alertbuilder.Dispose();
+                    });
+                    Android.Support.V7.App.AlertDialog dialog = alertbuilder.Create();
+                    dialog.Show();
+
+                    databaseService.EditNote(notes.ToList()[e.Position].Id, notes.ToList()[e.Position].Date, "Title", "Content");
+                    notes = databaseService.GetAllNotes();
+                    noteListView.Adapter = new CustomAdapter(this, notes.ToList());
                 });
                 dlgAlert.SetButton2("Delete", delegate
                 {
