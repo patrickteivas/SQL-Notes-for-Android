@@ -45,8 +45,6 @@ namespace App1
             if (view == null)
                 view = context.LayoutInflater.Inflate(Resource.Layout.NotesListview, null);
 
-            //position = (items.Count - 1) - position;
-
             view.FindViewById<TextView>(Resource.Id.title).Text = items[position].Title;
             view.FindViewById<TextView>(Resource.Id.date).Text = items[position].Date.ToLocalTime().ToString("HH:mm dd.MM.yyyy");
             view.FindViewById<TextView>(Resource.Id.content).Text = items[position].Content;
