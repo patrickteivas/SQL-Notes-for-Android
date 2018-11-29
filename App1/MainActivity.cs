@@ -41,20 +41,39 @@ namespace App1
 
             noteListView.ItemClick += delegate(object sender, AdapterView.ItemClickEventArgs e)
             {
-                Android.Support.V7.App.AlertDialog.Builder builder;
-                builder = new Android.Support.V7.App.AlertDialog.Builder(this);
-                builder.SetTitle("Warning");
-                builder.SetMessage("Are you sure you want to delete this note?");
-                builder.SetCancelable(false);
-                builder.SetPositiveButton("OK", delegate
+                //Android.Support.V7.App.AlertDialog.Builder builder;
+                //builder = new Android.Support.V7.App.AlertDialog.Builder(this);
+                //builder.SetTitle("Confirm delete");
+                //builder.SetMessage("Are you sure you want to delete this note?");
+                //builder.SetCancelable(false);
+                //builder.SetPositiveButton("OK", delegate
+                //{
+                //    databaseService.DeleteNote(notes.ToList()[e.Position].Id);
+                //    notes = databaseService.GetAllNotes();
+                //    noteListView.Adapter = new CustomAdapter(this, notes.ToList());
+                //});
+                //builder.SetNegativeButton("Cancel", delegate { });
+                //Dialog dialog = builder.Create();
+                //dialog.Show();
+
+
+                var dlgAlert = (new Android.App.AlertDialog.Builder(this)).Create();
+                dlgAlert.SetMessage("Choose action");
+                dlgAlert.SetTitle("Action");
+                dlgAlert.SetButton("Edit", delegate
+                {
+                    //databaseService.DeleteNote(notes.ToList()[e.Position].Id);
+                    //notes = databaseService.GetAllNotes();
+                    //noteListView.Adapter = new CustomAdapter(this, notes.ToList());
+                });
+                dlgAlert.SetButton2("Delete", delegate
                 {
                     databaseService.DeleteNote(notes.ToList()[e.Position].Id);
                     notes = databaseService.GetAllNotes();
                     noteListView.Adapter = new CustomAdapter(this, notes.ToList());
                 });
-                builder.SetNegativeButton("Cancel", delegate { });
-                Dialog dialog = builder.Create();
-                dialog.Show();
+                dlgAlert.SetButton3("Cancel", delegate { });
+                dlgAlert.Show();
             };
         }
     }
